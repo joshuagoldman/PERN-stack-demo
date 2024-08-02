@@ -1,0 +1,7 @@
+version: '3.8'
+services:
+  backend:
+    image: joshuagoldman1994/express-demo:1.0.11
+    build: 
+      context: .
+      dockerfile: ./express_demo.dockerfile

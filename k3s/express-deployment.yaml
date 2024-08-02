@@ -1,0 +1,41 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: react-demo
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: express-deployment
+  labels:
+    app: express-demo
+  namespace: react-demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: express-demo
+  template:
+    metadata:
+      labels:
+        app: express-demo
+    spec:
+      containers:
+      - name: express-demo
+        image: joshuagoldman1994/express-demo:1.0.11
+        ports:
+        - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: expresssvc
+  namespace: react-demo
+spec:
+  selector:
+    app: express-demo
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000
